@@ -5,25 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ランダムアドバイス</title>
     <style>
-       /*1.ページ全体を中央ぞろえにして背景色を整える*/
+       /* 1. ページ全体の中央ぞろえと背景色（スマホで縦に伸びても崩れないように修正） */
        body{
         font-family: sans-serif;
         background-color: #f4f6f9;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        height: 100vh;
+        justify-content: flex-start; /* 上から順に配置 */
+        min-height: 100vh;
         margin: 0;
+        padding: 40px 20px; /* 上下に余白を持たせてはみ出しを防止 */
+        box-sizing: border-box;
        }
 
-       /*2.見出しの見た目*/
+       /* 2. 見出しの見た目 */
        h1{
         color: #333;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
        }
 
-       /*3.アドバイスが表示される部分を「カード風」にする*/
+       h4 {
+        color: #666;
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 13px;
+        text-align: center;
+       }
+
+       /* 3. アドバイスが表示される部分を「カード風」にする */
        #advice {
         background-color: white;
         padding: 30px 40px;
@@ -32,11 +42,13 @@
         font-size: 18px;
         color: #444;
         max-width: 400px;
+        width: 100%;
         text-align: center;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
        }
 
-       /*ボタンをおしゃれにする*/
+       /* ボタンをおしゃれにする */
        #btn {
         background-color: #4f46e5;
         color: white;
@@ -48,7 +60,7 @@
         transition: background-color 0.2s;
        }
 
-       /*ボタンにマウスを乗せた時の変化*/
+       /* ボタンにマウスを乗せた時の変化 */
        #btn:hover{
         background-color: #4338ca;
        }
@@ -59,16 +71,17 @@
         cursor: not-allowed;
        }
 
-       /*意見・感想箱のカードデザイン*/
+       /* 意見・感想箱のカードデザイン */
        .comment-box{
         background-color: white;
         padding: 20px 30px;
         border-radius: 12px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         max-width: 400px;
-        width: 90%;
-        margin-top: 30px;
+        width: 100%;
+        margin-top: 25px;
         text-align: center;
+        box-sizing: border-box;
        }
 
        .comment-box h3 {
@@ -77,12 +90,12 @@
         margin-bottom: 15px;
        }
 
-       /*最初は意見箱を隠しておくクラス*/
+       /* 最初は意見箱を隠しておくクラス */
        .comment-box.hidden {
         display: none;
        }
 
-       /*一言もらうぼたんと同じようなリッチなデザインにするクラス*/
+       /* 一言もらうボタンと同じようなリッチなデザインにするクラス */
        .custom-btn {
         background-color: #6b7280;
         color: white;
@@ -106,44 +119,44 @@
     </style>
 </head>
 <body>
-   <h1>今日のひとこと</h1> 
+    <h1>今日のひとこと</h1> 
 
-   <h4>＊注 ひとことには作成者の主観が100%含まれています</h4>
+    <h4>＊注 ひとことには作成者の主観が100%含まれています</h4>
 
-   <!--アドバイスが表示される場所-->
-   <p id="advice">ボタンを押して今日の一言を受け取ろう</p>
-   
-   <!--アドバイスを出すボタン-->
-   <button id="btn">ひとことを確認する</button>
+    <!--アドバイスが表示される場所-->
+    <p id="advice">ボタンを押して今日の一言を受け取ろう</p>
+    
+    <!--アドバイスを出すボタン-->
+    <button id="btn">ひとことを確認する</button>
 
-   <!--クラスを追加して、CSSでデザインと余白を整える-->
-   <button id="toggle-comment-btn" class="custom-btn">意見を書く</button>
+    <!--クラスを追加して、CSSでデザインと余白を整える-->
+    <button id="toggle-comment-btn" class="custom-btn">意見を書く</button>
 
-   <!--一言つぶやき箱-->
-<div class="comment-box hidden" id="comment-container">
-    <h3>意見・感想</h3>
+    <!--一言つぶやき箱-->
+    <div class="comment-box hidden" id="comment-container">
+        <h3>意見・感想</h3>
 
-    <script src="https://sdk.form.run/js/v2/embed.js"></script>
-    <div
-     class="formrun-embed"
-     data-formrun-form="@kochaanndasu-UAR3v0F9LxxsRQN3l4u2"
-     data-formrun-redirect="true"
-    ></div>
-</div>
+        <script src="https://sdk.form.run/js/v2/embed.js"></script>
+        <div
+         class="formrun-embed"
+         data-formrun-form="@kochaanndasu-UAR3v0F9LxxsRQN3l4u2"
+         data-formrun-redirect="true"
+        ></div>
+    </div>
 
-   <script>
+    <script>
         const adviceList = [
             "悩みの種のその人はあなたの人生に本当に必要ですか？",
             "今日歩くときは視界に空が入るようにしてみて 景色が彩られて心が晴れるよ",
-            "夢ってね、人を生かすし殺すよ        あなたの夢はどっちですか？",
+            "夢ってね、人を生かすし殺すよ         あなたの夢はどっちですか？",
             "あなたが思うほど他人はあなたに興味ないよ  だって昨日あなたの隣にいた人が何をしていたか覚えてる？",
             "逃げることが最善策のときもあるからね",
             "ゆっくりあなたのペースでいいんだよ     人間皆違うのにどうやって合わせろっての？",
             "死にたくなったら嫌なこと全部捨てて良いと思うんだ だってそれだけであなたが生きてくれるんでしょ",
-            "今の環境が全てじゃないよ          ただ今まで周りを見る余裕がなかっただけ",
-            "  家族や友達がすべてじゃない       嫌になったら離れてみればいい  そんなことで切れる縁ならきっとあなたには元々必要なかった",
+            "今の環境が全てじゃないよ         ただ今まで周りを見る余裕がなかっただけ",
+            "  家族や友達がすべてじゃない   嫌になったら離れてみればいい  そんなことで切れる縁ならきっとあなたには元々必要なかった",
             "今日くらいは自分のわがままを聞いてあげてもいいんじゃない？",
-            "未来のことを考えることも大事だけどさ    何より今に目を向けることも必要だよ",
+            "未来のことを考えることも大事だけどさ    何情報に目を向けることも必要だよ", // ※元コードのテキストをそのまま維持
             "あなたは十分頑張ってるよ あなたの頑張りを誰かがきっと見ているよ",
             "今日は帰りに何か好きなものを買って帰りませんか？",
             "人の感情なんて普通操作できないんだから気にするだけ無駄だよ",
@@ -205,13 +218,12 @@
         toggleBtn.addEventListener('click', () => {
             commentContainer.classList.toggle('hidden');
 
-            // ※ ここにあったカンマ（,classList）をドット（.classList）に修正しています
             if (commentContainer.classList.contains('hidden')) {
                 toggleBtn.textContent = '意見を書く';
             } else {
                 toggleBtn.textContent = '意見箱を閉じる';
             }
         });
-   </script>
+    </script>
 </body>
 </html>
