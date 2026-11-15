@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ランダムアドバイス</title>
+    <style>
+       /*1.ページ全体を中央ぞろえにして背景色を整える*/
+       body{
+        font-family: sans-serif;
+        background-color: #f4f6f9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+       }
+
+       /*2.見出しの見た目*/
+       h1{
+        color: #333;
+        margin-bottom: 20px;
+       }
+
+       /*3.アドバイスが表示される部分を「カード風」にする*/
+       #advice {
+        background-color: white;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        font-size: 18px;
+        color: #444;
+        max-width: 400px;
+        text-align: center;
+        margin-bottom: 25px;
+       }
+
+       /*ボタンをおしゃれにする*/
+       #btn {
+        background-color: #4f46e5;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+       }
+
+       /*ボタンにマウスを乗せた時の変化*/
+       #btn:hover{
+        background-color: #4338ca;
+       }
+
+       /* 既に引いた後の無効化されたボタン用スタイル */
+       #btn:disabled {
+        background-color: #9ca3af;
+        cursor: not-allowed;
+       }
+
+       /*意見・感想箱のカードデザイン*/
+       .comment-box{
+        background-color: white;
+        padding: 20px 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        max-width: 400px;
+        width: 90%;
+        margin-top: 30px;
+        text-align: center;
+       }
+
+       .comment-box h3 {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 15px;
+       }
+
+       /*最初は意見箱を隠しておくクラス*/
+       .comment-box.hidden {
+        display: none;
+       }
+
+       /*一言もらうぼたんと同じようなリッチなデザインにするクラス*/
+       .custom-btn {
+        background-color: #6b7280;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.2s;
+
+        margin-top: 15px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        }
+
+        .custom-btn:hover {
+            background-color: #4338ca;
+        }
+    </style>
+</head>
+<body>
+   <h1>今日のひとこと</h1> 
+
+   <h4>＊注 ひとことには作成者の主観が100%含まれています</h4>
+
+   <!--アドバイスが表示される場所-->
+   <p id="advice">ボタンを押して今日の一言を受け取ろう</p>
+   
+   <!--アドバイスを出すボタン-->
+   <button id="btn">ひとことを確認する</button>
+
+   <!--クラスを追加して、CSSでデザインと余白を整える-->
+   <button id="toggle-comment-btn" class="custom-btn">意見を書く</button>
+
+   <!--一言つぶやき箱-->
+<div class="comment-box hidden" id="comment-container">
+    <h3>意見・感想</h3>
+
+    <script src="https://sdk.form.run/js/v2/embed.js"></script>
+    <div
+     class="formrun-embed"
+     data-formrun-form="@kochaanndasu-UAR3v0F9LxxsRQN3l4u2"
+     data-formrun-redirect="true"
+    ></div>
+</div>
+
+   <script>
+        const adviceList = [
+            "悩みの種のその人はあなたの人生に本当に必要ですか？",
+            "今日歩くときは視界に空が入るようにしてみて 景色が彩られて心が晴れるよ",
+            "夢ってね、人を生かすし殺すよ        あなたの夢はどっちですか？",
+            "あなたが思うほど他人はあなたに興味ないよ  だって昨日あなたの隣にいた人が何をしていたか覚えてる？",
+            "逃げることが最善策のときもあるからね",
+            "ゆっくりあなたのペースでいいんだよ     人間皆違うのにどうやって合わせろっての？",
+            "死にたくなったら嫌なこと全部捨てて良いと思うんだ だってそれだけであなたが生きてくれるんでしょ",
+            "今の環境が全てじゃないよ          ただ今まで周りを見る余裕がなかっただけ",
+            "  家族や友達がすべてじゃない       嫌になったら離れてみればいい  そんなことで切れる縁ならきっとあなたには元々必要なかった",
+            "今日くらいは自分のわがままを聞いてあげてもいいんじゃない？",
+            "未来のことを考えることも大事だけどさ    何より今に目を向けることも必要だよ",
+            "あなたは十分頑張ってるよ あなたの頑張りを誰かがきっと見ているよ",
+            "今日は帰りに何か好きなものを買って帰りませんか？",
+            "人の感情なんて普通操作できないんだから気にするだけ無駄だよ",
+            "やりたくなったらすぐにしなきゃ その気持ちが明日もあるなんて保証はない",
+            "やりたいことと向いてることは必ずしも同じじゃない。でも自分を殺してまでやりたいことを我慢するのはどうして？",
+            "やめたいはだめじゃない。 それは心のSOSじゃないのかな。",
+            "人生は取捨選択の連続 でも自分だけは捨ててはいけない。",
+            "人のために生きれる人は「人のため＝自分の幸せの人」じゃないかと思うんですよね",
+            "日本人はもっと自分の気持ちを出していいと思います。 それをしないからみんな自分の中にたくさん抱えてしまうんじゃないですか？",
+            "今をおろそかにする人によき未来は訪れるだろうか？",
+            "未来のために今を頑張る 今を頑張るために今日を休む 休むことも未来のため",
+            "後悔のないように生きるのは難しい。 でも今を生き抜くのはもっと難しいと僕は思うのです。",
+            "人の言う「あなたのため」が本当にあなたのためになるのか考えなさい ならないのなら今日の夕飯を考えましょう"
+        ];
+
+        const btn = document.getElementById('btn');
+        const adviceText = document.getElementById('advice');
+
+        // --- 1日1回制限のための判定処理 ---
+        const today = new Date().toISOString().split('T')[0]; // "YYYY-MM-DD"形式
+        const lastDrawnDate = localStorage.getItem('hitokoto_last_date');
+        const savedAdvice = localStorage.getItem('hitokoto_saved_advice');
+
+        // すでに今日引いている場合は、保存されているアドバイスを表示してボタンをロック
+        if (lastDrawnDate === today && savedAdvice) {
+            adviceText.textContent = savedAdvice;
+            btn.textContent = "今日はもう引いています";
+            btn.disabled = true;
+        }
+
+        // ボタンがクリックされた時の動き
+        btn.addEventListener('click', () => {
+            // ダブルチェック
+            const currentToday = new Date().toISOString().split('T')[0];
+            if (localStorage.getItem('hitokoto_last_date') === currentToday) {
+                return;
+            }
+
+            // リストの中からランダムに1つの番号を選ぶ
+            const randomIndex = Math.floor(Math.random() * adviceList.length);
+            const selectedAdvice = adviceList[randomIndex];
+
+            // 選ばれたアドバイスを画面のテキストに代入する
+            adviceText.textContent = selectedAdvice;
+
+            // 今日付と引いたアドバイスをブラウザに保存
+            localStorage.setItem('hitokoto_last_date', currentToday);
+            localStorage.setItem('hitokoto_saved_advice', selectedAdvice);
+
+            // ボタンを無効化
+            btn.textContent = "今日はもう引いています";
+            btn.disabled = true;
+        });
+
+        // 「意見を書く」ボタンが押されたら、意見箱の表示・非表示を切り替える
+        const toggleBtn = document.getElementById('toggle-comment-btn');
+        const commentContainer = document.getElementById('comment-container');
+
+        toggleBtn.addEventListener('click', () => {
+            commentContainer.classList.toggle('hidden');
+
+            // ※ ここにあったカンマ（,classList）をドット（.classList）に修正しています
+            if (commentContainer.classList.contains('hidden')) {
+                toggleBtn.textContent = '意見を書く';
+            } else {
+                toggleBtn.textContent = '意見箱を閉じる';
+            }
+        });
+   </script>
+</body>
+</html>
